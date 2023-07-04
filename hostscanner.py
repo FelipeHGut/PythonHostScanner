@@ -6,10 +6,10 @@
 # Host Discovery Tool
 # =============================================================================
 
-# Created By  :  Felipe H
+# Created By:  Felipe H
 # Date created: 20/06/2022
 # Description:
-# A script to find connected hosts in the same network of the host where the script is run.
+# A script to find connected hosts in the same network as the host where the script is run.
 # The script takes no arguments. The script allows you to save the results of any found hosts. 
 # It also allows you to run a port scan on those host founds.
 #
@@ -46,7 +46,7 @@ import ctypes
 
 def checkAdmin():
     # Function checks if the script is being run with administrative privileges.
-    # it first assumes it is being run on linux, if exception is raised then tries windows.
+    # it first assumes it is being run on linux. If an exception is raised, then tries windows.
     # the value 
     try:
         is_admin = (os.getuid() == 0)
@@ -78,7 +78,7 @@ def setupvariables():
     port_opens_results = {}
 
     def coloronconsole(text):
-        # Depending on the operational system it will display colors on the terminal.
+        # Depending on the operational system, it will display colours on the terminal.
         return text if operationalSystem == 'posix' else ''
 
     # Colors variables for terminals.
@@ -113,7 +113,7 @@ def setupvariables():
     ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝                                   
                                                                                                                                                                                                                                                                              
 {white}Tool created by Felipe H.
-This tool is was created for educational purpose.                                                                                                 
+This tool was created for educational purposes.                                                                                                 
 """
 
 
@@ -144,7 +144,7 @@ class IP:
         self.src = header[8]  # IP source
         self.dst = header[9]  # Destination IP
 
-        # the following creates a human readable IP address
+        # The following creates a human-readable IP address
 
         self.src_address = ipaddress.ip_address(self.src)
         self.dst_address = ipaddress.ip_address(self.dst)
@@ -176,10 +176,10 @@ class ICMP:
 
 
 def udp_sender():
-    """Function to send UDP datagrams with message """
-    # this sprays out UDP datagrams with our magic message to the port specified
-    # in this case 65212
-    # It goes throught ipaddress using the ipaddress.ip_network(SUBNET).hosts()
+    """ Function to send UDP datagrams with message. """
+    # This sprays out UDP datagrams with our magic message to the port specified
+    # In this case 65212
+    # It goes through ipaddress using the ipaddress.ip_network(SUBNET).hosts()
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sender:
         for ip in ipaddress.ip_network(SUBNET).hosts():
             sender.sendto(bytes(MESSAGE, 'utf8'), (str(ip), 65212))
@@ -193,9 +193,9 @@ class Scanner():
         # defines the HOST this will be given as an argument.
         self.host = host
 
-        # nt refers if the local host is a window OS. This is due to how the socket
+        # nt refers if the local host is a Windows OS. This is due to how the socket
         # module communicates with the kernel.
-        # Since we are using promiscious mode we require to run the python under administrative privileges
+        # Since we are using promiscuous mode we require to run python under administrative privileges
 
         if os.name == 'nt':
             socket_protocol = socket.IPPROTO_IP
@@ -263,8 +263,8 @@ class Scanner():
             print('')
 
 def network_find():
-    """Function to find any networks connected with the host. The program behaves differently depending on the Operational System"""
-    # the programs check the OS stored in the variable operational system.
+    """ Function to find any networks connected with the host. The program behaves differently depending on the Operational System"""
+    # The programs check the OS stored in the variable operational system.
     #
 
     if operationalSystem == 'nt':
